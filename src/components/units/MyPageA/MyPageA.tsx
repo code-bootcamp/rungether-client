@@ -27,7 +27,7 @@ const FETCH_USER_LOGGED_IN = gql`
       gender
       prefer
       region
-      image{
+      image {
         imgUrl
       }
     }
@@ -55,10 +55,8 @@ export default function MyPageA(props) {
   const [color4, setColor4] = useState(false);
 
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-console.log(data)
+  console.log(data);
   const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
-
-
 
   const onClickEdit = () => {
     setModalOpen((prev) => !prev);
