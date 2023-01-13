@@ -4,10 +4,7 @@ export const FETCH_CHAT_HISTORY = gql`
   query fetchChatHistory($boardId: String!) {
     fetchChatHistory(boardId: $boardId) {
       id
-      user {
-        id
-        name
-      }
+      user
       message
     }
   }

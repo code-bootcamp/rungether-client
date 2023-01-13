@@ -1,30 +1,41 @@
 import { gql, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
+import { EditBoardId } from "../../../commons/stores";
+import {
+  IQuery,
+  IQueryFetchMyAllBoardsArgs,
+  IQueryFetchMyBoardArgs,
+} from "../../../commons/types/generated/types";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
     fetchMyAllBoards(page: $page) {
       id
-      user {
+      title
+      content
+      attendCount
+      pickCount
+      attendList {
         id
-        email
-        nickname
-        age
-        gender
-        region
-        grade
-        prefer
+        user {
+          id
+          nickname
+        }
+        board {
+          id
+        }
       }
     }
   }
 `;
 
-export default function AttendPeople() {
+export default function AttendPeople(props) {
   const { data } = useQuery<
-  Pick<IQuery, "fetchMyAllBoards">,
-  IQueryFetchMyAllBoardsArgs
->(FETCH_MY_All_BOARDS);
+    Pick<IQuery, "fetchMyAllBoards">,
+    IQueryFetchMyAllBoardsArgs
+  >(FETCH_MY_All_BOARDS, { variables: { page: 1 } });
+
+  console.log(data);
 
   return (
     <>
@@ -36,13 +47,14 @@ export default function AttendPeople() {
             </ImageListProfileBox>
             <Profile1>
               <InfoTextBox1>
-                <Title1>{el.user.nickname}</Title1>
+                <Title1>{/* {el.user.nickname} */}</Title1>
                 <Nim1>님</Nim1>
               </InfoTextBox1>
               <Content1>
-                <Exercise>{el.user.prefer}</Exercise>
-                <Section2>{el.user.region}</Section2>
-                <Sex1>{el.user.gender}</Sex1>
+                <Exercise>{/* {el.user.prefer} */}</Exercise>
+                <Section2>{/* {el.user.region} */}</Section2>
+
+                <Sex1>{/* {el.user.gender} */}</Sex1>
               </Content1>
             </Profile1>
           </BoardList>

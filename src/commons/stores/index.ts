@@ -38,9 +38,14 @@ export const attendListIdState = atom({
   key: "attendListIdState",
   default: "",
 });
+
 export const reviewWriteModalState = atom({
   key: "reviewWriteModalState",
   default: false,
+});
+export const BoardId = atom({
+  key: "BoardId",
+  default: "",
 });
 export const EditBoardId = atom({
   key: "EditBoardId",
@@ -74,4 +79,3 @@ export const ReviewCommentMore = atom({
   key: "ReviewCommentMore",
   default: false,
 });
-

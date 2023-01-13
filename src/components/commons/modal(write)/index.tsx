@@ -19,8 +19,11 @@ import dynamic from "next/dynamic";
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import KaKaoMapPage from "../map/mapsearch";
-import { IMutation, IMutationCreateBoardArgs } from "../../../commons/types/generated/types";
-
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+} from "../../../commons/types/generated/types";
+import { BoardId } from "../../../commons/stores/index";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
@@ -128,6 +131,7 @@ export default function InModalWrite(props) {
   const [center, setCenter] = useRecoilState(mapCenterState);
   const [path, setPath] = useRecoilState(mapPathState);
   const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
+  const [NewBoardId, SetNewBoardId] = useRecoilState(BoardId);
   const [recruitRegion, setRecruitRegion] = useState("서울특별시");
   const [recruitGrade, setRecruitGrade] = useState("Beginner");
   const [title, setTitle] = useState("");
@@ -160,8 +164,8 @@ export default function InModalWrite(props) {
               center,
             },
           },
-         
-        }, refetchQueries: [{ query: FETCH_ALL_BOARDS }],
+        },
+        refetchQueries: [{ query: FETCH_ALL_BOARDS }],
       });
       Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);

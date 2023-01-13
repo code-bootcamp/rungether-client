@@ -163,6 +163,7 @@ export const ImgBox1 = styled.div`
   height: 500px;
   background-position: center;
   background-size: cover;
+  background: url("./images/landing.png");
 
   ${M.mediaL} {
     /* width: 100%;

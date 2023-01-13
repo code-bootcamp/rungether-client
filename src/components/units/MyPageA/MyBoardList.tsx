@@ -4,9 +4,16 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { attendListIdState, modalDetailState, reviewWriteModalState } from "../../../commons/stores";
+import {
+  attendListIdState,
+  modalDetailState,
+  reviewWriteModalState,
+} from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
-import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
+import {
+  IQuery,
+  IQueryFetchMyAllBoardsArgs,
+} from "../../../commons/types/generated/types";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 import * as M from "../../../commons/styles/mediaQueries";
@@ -26,7 +33,7 @@ export const FETCH_MY_All_BOARDS = gql`
       recruitGrade
       createdAt
       recruitPeople
-      image{
+      image {
         imgUrl
       }
     }
@@ -38,10 +45,10 @@ export default function MyBoardList() {
   const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
 
   const { data } = useQuery<
-  Pick<IQuery, "fetchMyAllBoards">,
-  IQueryFetchMyAllBoardsArgs
->(FETCH_MY_All_BOARDS);
-console.log(data)
+    Pick<IQuery, "fetchMyAllBoards">,
+    IQueryFetchMyAllBoardsArgs
+  >(FETCH_MY_All_BOARDS);
+  console.log(data);
 
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
@@ -53,20 +60,16 @@ console.log(data)
 
   const sanitizeHtml = require("sanitize-html");
 
-
   const onClickWriteReview = (attendListId) => async (e) => {
     e.stopPropagation();
-    setAttendListId(attendListId)
+    setAttendListId(attendListId);
     setIsModalOpen(true);
   };
 
   return (
     <>
-       {isModalOpen && (
-        <CusModal
-          width="1100px"
-          open={true}
-        >
+      {isModalOpen && (
+        <CusModal width="1100px" open={true}>
           <ReviewWrite />
         </CusModal>
       )}
@@ -111,8 +114,12 @@ console.log(data)
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-              <ThumbnailImage 
-              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              <ThumbnailImage
+                style={{
+                  backgroundImage: el.image?.imgUrl
+                    ? `url(${el.image.imgUrl})`
+                    : `url(/images/basic.png)`,
+                }}
               ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
@@ -233,12 +240,9 @@ export const ThumbnailImage = styled.div`
   background-position: center;
 `;
 export const Date = styled.div`
-
   padding: 0px 20px 17px 20px;
   width: 50px;
   text-align: center;
-
-
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {

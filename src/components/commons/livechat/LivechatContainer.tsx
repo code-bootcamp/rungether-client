@@ -50,7 +50,11 @@ export default function Livechat(props: IPropsLiveChat) {
     setUserId(props.userData?.fetchUserLoggedIn.id);
     setRoom(String(props.data?.fetchBoard?.id));
     setNickName(props.userData?.fetchUserLoggedIn.nickname);
-  }, [props.userData]);
+  }, [props.data, props.userData]);
+
+  useEffect(() => {
+    setRoom(String(props.data?.fetchBoard?.id));
+  }, [props.data]);
 
   const onClickSubmit = async (data: IFormValueChat) => {
     const message = await data.contents;
