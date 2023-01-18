@@ -155,7 +155,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 23px;
-  cursor: pointer;
 `;
 const ImgBox = styled.div`
   width: 103px;
@@ -207,6 +206,7 @@ const FollowButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const ButtonWrap = styled.div`
   width: 75%;
