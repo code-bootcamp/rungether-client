@@ -187,7 +187,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 23px;
-  cursor: pointer;
 `;
 const ImgBox = styled.div`
   width: 103px;
@@ -235,14 +234,7 @@ const Level = styled.div`
   letter-spacing: -0.47999998927116394px;
   text-align: left;
 `;
-const Button = styled.button`
-  width: 75%;
-  height: 35px;
-  color: #fafafa;
-  background-color: #0b0b0b;
-  border-radius: 16px;
-  cursor: pointer;
-`;
+
 const ButtonWrap = styled.div`
   width: 100%;
   display: flex;
@@ -254,4 +246,5 @@ const FollowButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;

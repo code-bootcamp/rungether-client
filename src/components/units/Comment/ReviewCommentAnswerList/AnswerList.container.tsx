@@ -19,6 +19,7 @@ export default function AnswerList(props: any) {
     variables: { reviewCommentId: String(props.el.id) },
   });
 
+  console.log(data)
   const [deleteReviewNestedComment] = useMutation<
     Pick<IMutation, "deleteReviewNestedComment">,
     IMutationDeleteReviewNestedCommentArgs

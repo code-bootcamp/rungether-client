@@ -17,9 +17,9 @@ export const FETCH_REVIEW_NESTED_COMMENTS = gql`
 `;
 
 export const DELETE_REVIEW_NESTED_COMMENT = gql`
-  mutation deleteReviewNestedComment($reviewNestedComment: String!) {
+  mutation deleteReviewNestedComment($reviewNestedCommentId: String!) {
     deleteReviewNestedComment(
-      reviewNestedComment: $reviewNestedComment
+      reviewNestedCommentId: $reviewNestedCommentId
     )
   }
 `;
