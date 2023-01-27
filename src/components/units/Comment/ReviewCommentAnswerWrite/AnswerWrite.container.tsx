@@ -35,7 +35,6 @@ export default function CommentAnswerWriter(props: any) {
           },
         ],
       });
-      console.log(result);
       setContents("");
       props.setMore(true);
       setIsActive((prev) => !prev);

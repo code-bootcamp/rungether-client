@@ -268,7 +268,6 @@ export default function JoinPageA() {
     }
   };
   const onClickSubmit = async () => {
-    console.log(typeof image);
     try {
       const result = await createUser({
         variables: {
@@ -287,7 +286,6 @@ export default function JoinPageA() {
         },
       });
       router.push(`/`);
-      console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }

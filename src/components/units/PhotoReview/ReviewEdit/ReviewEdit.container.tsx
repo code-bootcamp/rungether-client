@@ -48,13 +48,12 @@ export default function ReviewEdit(props: any) {
       setContent(props.data?.fetchReviewBoard.content);
     }
     setReviewImage(props.image);
-  }, [props.image]);
+  }, [props.data, props.image]);
 
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...reviewImage];
     newFileUrls[index] = fileUrl;
     setReviewImage(newFileUrls);
-    console.log(reviewImage);
   };
 
   const onClickUpdate = async () => {
@@ -75,7 +74,7 @@ export default function ReviewEdit(props: any) {
         },
         refetchQueries: [{ query: FETCH_ALL_REVIEW_BOARDS }],
       });
-      console.log(result);
+
       setIsModalOpen(false);
       setIsDetailModalOpen(false);
       alert("리뷰수정이 완료되었습니다.");

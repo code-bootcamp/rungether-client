@@ -20,7 +20,6 @@ export default function Uploads02(props: any) {
     if (!file) return;
   };
 
-  console.log(props.files);
   return (
     <Uploads01UI
       fileRef={fileRef}

@@ -44,7 +44,7 @@ export default function LayoutHeader() {
 
   useEffect(() => {
     setId(data?.fetchUserLoggedIn.id);
-  }, [data]);
+  }, [data, setId]);
 
   const onClickMoveToLogin = () => {
     if (!data) {

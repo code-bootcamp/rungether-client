@@ -28,8 +28,6 @@ export default function Members() {
     IQueryFetchUserArgs
   >(FETCH_USERS);
 
-  console.log(data);
-
   const onLoadMore = () => {
     if (!data) return;
 
@@ -59,16 +57,16 @@ export default function Members() {
     variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
   });
 
-  const onChangeLevel = (e: MouseEvent<JSX.Element>) => {
+  const onChangeLevel = (e: MouseEvent) => {
     setLevel(String(e));
   };
-  const onChangeLo = (e: MouseEvent<JSX.Element>) => {
+  const onChangeLo = (e: MouseEvent) => {
     setLo(String(e));
   };
-  const onChangeAge = (e: MouseEvent<JSX.Element>) => {
+  const onChangeAge = (e: MouseEvent) => {
     setAge(String(e));
   };
-  const onChangeFav = (e: MouseEvent<JSX.Element>) => {
+  const onChangeFav = (e: MouseEvent) => {
     setFav(String(e));
   };
   const onClickBtn = () => {
@@ -92,23 +90,19 @@ export default function Members() {
     }
   });
 
-
-  
- 
   return (
-  <MembersUi 
-  onLoadMore={onLoadMore}
-  loading={loading}
-  following={following}
-  isNo={isNo} 
-  data={data}
-  result={result}
-  onChangeLevel={onChangeLevel}
-  onChangeLo={onChangeLo}
-  onChangeAge={onChangeAge}
-  onChangeFav={onChangeFav}
-  onClickBtn={onClickBtn}
-  />
-
+    <MembersUi
+      onLoadMore={onLoadMore}
+      loading={loading}
+      following={following}
+      isNo={isNo}
+      data={data}
+      result={result}
+      onChangeLevel={onChangeLevel}
+      onChangeLo={onChangeLo}
+      onChangeAge={onChangeAge}
+      onChangeFav={onChangeFav}
+      onClickBtn={onClickBtn}
+    />
   );
 }

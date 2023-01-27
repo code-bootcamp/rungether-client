@@ -56,7 +56,6 @@ export default function UserEdit(props: any) {
       setAge(props.data?.fetchUserLoggedIn.age);
     }
   }, [props.data]);
-  console.log(props.data);
 
   const [checkNickName] = useMutation<
     Pick<IMutation, "checkNickName">,
@@ -197,7 +196,6 @@ export default function UserEdit(props: any) {
           { query: FETCH_USER_LOGGED_IN }
         ],
       });
-      console.log(result);
       setModalOpen(false);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });

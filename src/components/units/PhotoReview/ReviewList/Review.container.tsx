@@ -29,10 +29,6 @@ export default function Review() {
       variables: { userId: String(fetchUser?.fetchUserLoggedIn.id) },
     });
 
-
-    console.log("follower",followerList)
-    console.log(followingList)
-
     const onClickMore = (reviewBoardId) => () =>{
         setReviewId(reviewBoardId)
         setIsModalOpen(true);

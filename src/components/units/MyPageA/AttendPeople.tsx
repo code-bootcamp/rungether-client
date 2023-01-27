@@ -35,10 +35,6 @@ export const FETCH_MY_All_BOARDS = gql`
 export default function AttendPeople() {
   const { data } = useQuery(FETCH_MY_All_BOARDS);
 
-  console.log("=============");
-  console.log(data?.fetchMyAllBoards);
-  console.log("=============");
-
   return (
     <>
       {data?.fetchMyAllBoards?.map((el: any, index: any) => (

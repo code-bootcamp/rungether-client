@@ -22,16 +22,13 @@ export default function Uploads01(props: any) {
       setImage(props.data.fetchBoard.image?.imgUrl);
     }
   }, [props.data]);
-  console.log(image);
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     const file = checkValidationImage(event.target.files?.[0]);
     if (!file) return;
 
     try {
       const result = await uploadFile({ variables: { file } });
       setImage(result.data.uploadFile);
-      console.log(result.data);
       props.onChangeImage(result.data.uploadFile);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });

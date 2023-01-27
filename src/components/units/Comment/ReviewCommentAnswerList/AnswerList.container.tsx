@@ -24,8 +24,6 @@ export default function AnswerList(props: any) {
     IMutationDeleteReviewNestedCommentArgs
   >(DELETE_REVIEW_NESTED_COMMENT);
 
-  console.log(data);
-
   const onLoadMore = () => {
     if (!data) return;
 

@@ -68,7 +68,6 @@ export default function MyPickList() {
 
   const onClickPick = (boardId) => async (e: any) => {
     e.stopPropagation();
-    console.log(boardId);
     setPick((prev) => !prev);
     try {
       const result = await pickBoard({
@@ -92,7 +91,6 @@ export default function MyPickList() {
     }
   };
   const { data } = useQuery(FETCH_MY_PICK_BOARDS);
-  console.log(data);
 
   const sanitizeHtml = require("sanitize-html");
 

@@ -90,6 +90,11 @@ export default function UserCard(props: any) {
   const [followUser] = useMutation(FOLLOW_USER);
 
   const onClickAdd = (userId) => async () => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      return
+    } 
     if (loggedInId === userId) {
       alert("자기 자신은 팔로우 할 수 없습니다 !");
       return;
@@ -108,7 +113,6 @@ export default function UserCard(props: any) {
         },
       ],
     });
-    console.log(result);
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
     } else if (addActive === true) {

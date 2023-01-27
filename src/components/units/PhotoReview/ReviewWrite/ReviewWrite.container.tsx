@@ -54,7 +54,6 @@ export default function ReviewWrite() {
         },
         refetchQueries: [{ query: FETCH_ALL_REVIEW_BOARDS }],
       });
-      console.log(result);
       setIsModalOpen(false);
       alert("리뷰등록이 완료되었습니다.");
       router.push(`/photoReview`);

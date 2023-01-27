@@ -131,7 +131,7 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
   };
 };
 
-export default function InModalEdit(props) {
+export default function InModalEdit(props: any) {
   const router = useRouter();
   const [center, setCenter] = useRecoilState(mapEditCenterState);
   const [path, setPath] = useRecoilState(mapEditPathState);
@@ -166,7 +166,7 @@ export default function InModalEdit(props) {
         setPath(props.data.fetchBoard.location?.path);
       }
     }
-  }, [props.data, path, center]);
+  }, [props.data, path, center, setCenter, setPath]);
   const [updateBoard] = useMutation<
     Pick<IMutation, "updateBoard">,
     IMutationUpdateBoardArgs

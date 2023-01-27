@@ -59,19 +59,19 @@ export const mapCenterState = atom({
   default: "",
 });
 export const mapEditPathState = atom({
-  key: "mapPathState",
+  key: "mapEditPathState",
   default: "",
 });
 export const mapEditCenterState = atom({
-  key: "mapCenterState",
+  key: "mapEditCenterState",
   default: "",
 });
 export const mapPathViewState = atom({
-  key: "mapPathState",
+  key: "mapPathViewState",
   default: [],
 });
 export const mapCenterViewState = atom({
-  key: "mapCenterState",
+  key: "mapCenterViewState",
   default: [],
 });
 export const ReviewCommentMore = atom({
@@ -111,4 +111,3 @@ export const okModalState = atom({
   key: "okModalState",
   default: false,
 });
-

@@ -25,30 +25,10 @@ export default function ReviewCommentList(props: any) {
     IMutationDeleteReviewCommentArgs
   >(DELETE_REVIEW_COMMENT);
 
-  const onLoadMore = () => {
-    if (!data) return;
 
-    fetchMore({
-      variables: {
-        page: Math.ceil(data?.fetchReviewComments.length / 4) + 1,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (fetchMoreResult.fetchReviewComments == undefined) {
-          return {
-            fetchReviewComments: [...prev.fetchReviewComments],
-          };
-        }
-        return {
-          fetchReviewComments: [
-              ...prev?.fetchReviewComments,
-            ...fetchMoreResult?.fetchReviewComments,
-          ],
-        };
-      },
-    });
-  };
 
-  const onClickDelete = (reviewCommentId) => async (event: MouseEvent<HTMLElement>) => {
+  const onClickDelete =
+    (reviewCommentId) => async (event: MouseEvent<HTMLElement>) => {
       try {
         await deleteReviewComment({
           variables: {
@@ -69,7 +49,7 @@ export default function ReviewCommentList(props: any) {
   return (
     <ReviewCommentListUI
       onClickDelete={onClickDelete}
-      onLoadMore={onLoadMore}
+
       data={data}
     />
   );

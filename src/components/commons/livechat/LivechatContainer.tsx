@@ -30,27 +30,38 @@ export default function Livechat(props: IPropsLiveChat) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-
-
   const { register, handleSubmit, resetField } = useForm({
     mode: "onChange",
     defaultValues: {
       contents: "",
     },
   });
+  console.log(data);
+  // useEffect(() => {
+  //   socket.on(room, (data) => {
+  //     setResultMsg((prev: string[]) => [...prev, data]);
+  //   });
+  // }, [room, socket]);
 
+  // useEffect(() => {
+  //   setUserId(props.userData?.fetchUserLoggedIn.id);
+  //   setRoom(String(props.data?.fetchBoard?.id));
+  //   setNickName(props.userData?.fetchUserLoggedIn.nickname);
+  // }, [props.data?.fetchBoard?.id, props.userData]);
+  // useEffect(() => {
+  //   setRoom(String(props.data?.fetchBoard?.id));
+  // }, [props.data]);
   useEffect(() => {
     socket.on(room, (data) => {
       setResultMsg((prev: string[]) => [...prev, data]);
     });
-  }, [props.userData]);
+  }, [room]);
 
   useEffect(() => {
     setUserId(props.userData?.fetchUserLoggedIn.id);
-    // setRoom(String(props.data?.fetchBoard?.id));
+    setRoom(String(props.data?.fetchBoard?.id));
     setNickName(props.userData?.fetchUserLoggedIn.nickname);
   }, [props.userData]);
-
   useEffect(() => {
     setRoom(String(props.data?.fetchBoard?.id));
   }, [props.data]);

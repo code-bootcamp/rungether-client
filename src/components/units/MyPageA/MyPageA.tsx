@@ -10,7 +10,6 @@ import { userEditState } from "../../../commons/stores";
 import styled from "@emotion/styled";
 import UserEdit from "../../commons/user(Edit)/userEdit.container";
 import { Modal } from "antd";
-import { withAuth } from "../../commons/hocs/withAuth";
 import { useRouter } from "next/router";
 
 export const FETCH_USER_LOGGED_IN = gql`
@@ -63,12 +62,6 @@ export default function MyPageA(props: any) {
     } else return;
   });
 
-  useEffect(() => {
-    console.log(data)
-    if(data?.fetchUserLoggedIn?.image === null) {
-      console.log(111)
-    }
-  }, [data]);
 
   const onClickEdit = () => {
     setModalOpen((prev) => !prev);
@@ -125,97 +118,113 @@ export default function MyPageA(props: any) {
     }
   };
   const handleCancel = () => {
-    setModalOpen(false)
-  }
+    setModalOpen(false);
+  };
 
   return (
     <S.Containerbox>
       {ModalOpen && (
-        <ModalCustom title="회원정보 수정" centered open={true} width={1000}  onCancel={handleCancel}>
+        <ModalCustom
+          title="회원정보 수정"
+          centered
+          open={true}
+          width={1000}
+          onCancel={handleCancel}
+        >
           <UserEdit data={data} />
         </ModalCustom>
       )}
-      {loading ? ""
-      :
-      <S.Container>
-        <S.Wrapper>
-          <S.ProfileBox>
-            <S.ProfileImageAvatarBox>
-              <S.ImageAvatar
-                src={data?.fetchUserLoggedIn?.image?.imgUrl || "/profile.png"}
-              />
-            </S.ProfileImageAvatarBox>
-            <S.InfoBox>
-              <S.NickInfoBox>
-                <S.NickNameWrapper>
-                  <S.Nickname>{data?.fetchUserLoggedIn?.nickname}</S.Nickname>
-                  <S.Nim>님</S.Nim>
-                </S.NickNameWrapper>
-                <S.Modify onClick={onClickEdit}>회원정보수정</S.Modify>
-              </S.NickInfoBox>
-              <S.InformationBox>
-                <S.FriendHeartBox>
-                  <S.FriendBox>
-                    <S.IconBox>
-                      <BiUserPlus style={{ fontSize: "40px" }} />
-                    </S.IconBox>
-                    <S.FriendTextBox>
-                      <S.FriendText>
-                        팔로워
-                        {fetchMyFollowCount?.fetchMyFollowCount?.followerCount}
-                      </S.FriendText>
-                    </S.FriendTextBox>
-                  </S.FriendBox>
-                  <S.HeartBox1>
-                    <S.RightIconDownBox>
-                      <BiUserPlus style={{ fontSize: "40px" }} />
-                    </S.RightIconDownBox>
-                    <S.FameTextBox>
-                      <S.FameText>
-                        팔로잉
-                        {fetchMyFollowCount?.fetchMyFollowCount?.followCount}
-                      </S.FameText>
-                    </S.FameTextBox>
-                  </S.HeartBox1>
-                </S.FriendHeartBox>
-              </S.InformationBox>
-            </S.InfoBox>
-          </S.ProfileBox>
-        </S.Wrapper>
-        <S.BoardCategoryWrapper>
-          <S.BoardBox>
-            <S.FriendListBox>
-              <S.FriendList>
-                <S.FriendListText isActive={color1} onClick={onClickColorfirst}>
-                  내가 쓴 글
-                </S.FriendListText>
-              </S.FriendList>
-            </S.FriendListBox>
-            <S.ChatListBox>
-              <S.ChatList>
-                <S.ChatListText onClick={onClickColorSecond} isActive={color2}>
-                  내가 참가한 글
-                </S.ChatListText>
-              </S.ChatList>
-            </S.ChatListBox>
-            <S.PickListBox>
-              <S.PickList>
-                <S.PickListText onClick={onClickColorThird} isActive={color3}>
-                  내가 찜한 글
-                </S.PickListText>
-              </S.PickList>
-            </S.PickListBox>
-          </S.BoardBox>
-        </S.BoardCategoryWrapper>
-        <S.ListContainer>
-          {color1 ? <MyBoardList /> : ""}
-          {color2 ? <AttendList /> : ""}
-          {color3 ? <MyPickList /> : ""}
-        </S.ListContainer>
-        {/* 보드리스트 게시글목록 할 때 부분 */}
-      </S.Container>
-}
-    </S.Containerbox>  
+      {loading ? (
+        ""
+      ) : (
+        <S.Container>
+          <S.Wrapper>
+            <S.ProfileBox>
+              <S.ProfileImageAvatarBox>
+                <S.ImageAvatar
+                  src={data?.fetchUserLoggedIn?.image?.imgUrl || "/profile.png"}
+                />
+              </S.ProfileImageAvatarBox>
+              <S.InfoBox>
+                <S.NickInfoBox>
+                  <S.NickNameWrapper>
+                    <S.Nickname>{data?.fetchUserLoggedIn?.nickname}</S.Nickname>
+                    <S.Nim>님</S.Nim>
+                  </S.NickNameWrapper>
+                  <S.Modify onClick={onClickEdit}>회원정보수정</S.Modify>
+                </S.NickInfoBox>
+                <S.InformationBox>
+                  <S.FriendHeartBox>
+                    <S.FriendBox>
+                      <S.IconBox>
+                        <BiUserPlus style={{ fontSize: "40px" }} />
+                      </S.IconBox>
+                      <S.FriendTextBox>
+                        <S.FriendText>
+                          팔로워
+                          {
+                            fetchMyFollowCount?.fetchMyFollowCount
+                              ?.followerCount
+                          }
+                        </S.FriendText>
+                      </S.FriendTextBox>
+                    </S.FriendBox>
+                    <S.HeartBox1>
+                      <S.RightIconDownBox>
+                        <BiUserPlus style={{ fontSize: "40px" }} />
+                      </S.RightIconDownBox>
+                      <S.FameTextBox>
+                        <S.FameText>
+                          팔로잉
+                          {fetchMyFollowCount?.fetchMyFollowCount?.followCount}
+                        </S.FameText>
+                      </S.FameTextBox>
+                    </S.HeartBox1>
+                  </S.FriendHeartBox>
+                </S.InformationBox>
+              </S.InfoBox>
+            </S.ProfileBox>
+          </S.Wrapper>
+          <S.BoardCategoryWrapper>
+            <S.BoardBox>
+              <S.FriendListBox>
+                <S.FriendList>
+                  <S.FriendListText
+                    isActive={color1}
+                    onClick={onClickColorfirst}
+                  >
+                    내가 쓴 글
+                  </S.FriendListText>
+                </S.FriendList>
+              </S.FriendListBox>
+              <S.ChatListBox>
+                <S.ChatList>
+                  <S.ChatListText
+                    onClick={onClickColorSecond}
+                    isActive={color2}
+                  >
+                    내가 참가한 글
+                  </S.ChatListText>
+                </S.ChatList>
+              </S.ChatListBox>
+              <S.PickListBox>
+                <S.PickList>
+                  <S.PickListText onClick={onClickColorThird} isActive={color3}>
+                    내가 찜한 글
+                  </S.PickListText>
+                </S.PickList>
+              </S.PickListBox>
+            </S.BoardBox>
+          </S.BoardCategoryWrapper>
+          <S.ListContainer>
+            {color1 ? <MyBoardList /> : ""}
+            {color2 ? <AttendList /> : ""}
+            {color3 ? <MyPickList /> : ""}
+          </S.ListContainer>
+          {/* 보드리스트 게시글목록 할 때 부분 */}
+        </S.Container>
+      )}
+    </S.Containerbox>
   );
 }
 
@@ -260,5 +269,3 @@ const ModalCustom = styled(Modal)`
     visibility: hidden;
   }
 `;
-
-

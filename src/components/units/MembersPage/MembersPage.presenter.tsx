@@ -162,7 +162,7 @@ export default function MembersUi(props: any) {
     }
   };
   return props.loading ? (
-    ""
+    <></>
   ) : (
     <S.Wrapper>
       <S.SearchWrap>

@@ -31,7 +31,7 @@ export default function KaKaoMapEdit() {
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=f0c68224b90fedf4d41381f7107ec170&libraries=services,drawing&autoload=false";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=b64e0417ea88d2dc43bf2b70b73cafae&libraries=services,drawing&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -358,7 +358,7 @@ export default function KaKaoMapEdit() {
   useEffect(() => {
     setPath1(JSON.stringify(path));
     setCenter1(JSON.stringify(center));
-  }, [path, center]);
+  }, [path, center, setPath1, setCenter1]);
   return (
     <>
       <ButtonWrap>

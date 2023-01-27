@@ -19,6 +19,7 @@ import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 import * as M from "../../../commons/styles/mediaQueries";
 import { CusModal } from "../PhotoReview/ReviewWrite/ReviewWrite.styles";
 import ReviewWrite from "../PhotoReview/ReviewWrite/ReviewWrite.container";
+import InfiniteScroll from "react-infinite-scroller";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
@@ -51,11 +52,10 @@ export default function MyBoardList() {
   const [isModalOpen, setIsModalOpen] = useRecoilState(reviewWriteModalState);
   const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
 
-  const { data } = useQuery<
+  const { data,fetchMore } = useQuery<
     Pick<IQuery, "fetchMyAllBoards">,
     IQueryFetchMyAllBoardsArgs
   >(FETCH_MY_All_BOARDS);
-  console.log(data);
 
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
@@ -66,6 +66,29 @@ export default function MyBoardList() {
   };
 
   const sanitizeHtml = require("sanitize-html");
+
+  const onLoadMore = () => {
+    if (!data) return;
+
+    fetchMore({
+      variables: {
+        page: Math.ceil(data?.fetchMyAllBoards.length / 5) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (fetchMoreResult.fetchMyAllBoards == undefined) {
+          return {
+            fetchMyAllBoards: [...prev.fetchMyAllBoards],
+          };
+        }
+        return {
+          fetchMyAllBoards: [
+            ...prev.fetchMyAllBoards,
+            ...fetchMoreResult?.fetchMyAllBoards,
+          ],
+        };
+      },
+    });
+  };
 
   const onClickWriteReview = (attendListId) => async (e) => {
     e.stopPropagation();
@@ -89,6 +112,8 @@ export default function MyBoardList() {
       <ModalCustom centered open={ModalOpen} width={1000} onCancel={onCancel}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
+      <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true} useWindow={true}>
+        <DataWrap>
       {data?.fetchMyAllBoards?.map((el: any) => (
         <BoardListWrapper key={el.id}>
           <BoardList onClick={onClickDetail(el.id)}>
@@ -140,9 +165,15 @@ export default function MyBoardList() {
           </BoardList>
         </BoardListWrapper>
       ))}
+     </DataWrap>
+      </InfiniteScroll>
     </>
   );
 }
+export const DataWrap = styled.div`
+height: 620px;
+overflow: auto;
+`
 
 export const BoardListWrapper = styled.div`
   padding: 0 80px 0 80px;

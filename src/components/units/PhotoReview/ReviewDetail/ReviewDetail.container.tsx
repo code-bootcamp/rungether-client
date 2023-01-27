@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import {
   LoggedInUserId,
@@ -28,6 +29,7 @@ export default function ReviewDetail(props: any) {
   const [isModalOpen, setIsModalOpen] = useRecoilState(ReviewDetailState);
   const [editModal, setEditModal] = useRecoilState(reviewWriteModalState);
   const [id, setId] = useRecoilState(LoggedInUserId);
+  const router = useRouter()
   const image = [];
 
   const [deleteReviewBoard] = useMutation<
@@ -43,7 +45,6 @@ export default function ReviewDetail(props: any) {
       reviewBoardId: String(props.reviewId),
     },
   });
-  console.log(data, props.reviewId);
 
   const { data: images } = useQuery<
     Pick<IQuery, "fetchReviewBoardImage">,
@@ -66,6 +67,12 @@ export default function ReviewDetail(props: any) {
   });
 
   const onClickHeart = async () => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setIsModalOpen(false);
+      return
+    } 
     try {
       const result = await likeReviewBoard({
         variables: {
@@ -78,7 +85,6 @@ export default function ReviewDetail(props: any) {
           },
         ],
       });
-      console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
@@ -92,7 +98,7 @@ export default function ReviewDetail(props: any) {
         },
         refetchQueries: [{ query: FETCH_ALL_REVIEW_BOARDS }],
       });
-      props.setIsModalOpen((prev) => !prev);
+      setIsModalOpen((prev) => !prev);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

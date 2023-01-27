@@ -40,15 +40,14 @@ import {
 export default function CommunityDetailPage(props: any) {
   const [pickBoard] = useMutation(PICK_BOARD);
 
-
-  const { data, loading } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
-    FETCH_BOARD,
-    {
-      variables: {
-        boardId: String(props.boardId),
-      },
-    }
-  );
+  const { data, loading } = useQuery<
+    Pick<IQuery, "fetchBoard">,
+    IQueryFetchBoardArgs
+  >(FETCH_BOARD, {
+    variables: {
+      boardId: String(props.boardId),
+    },
+  });
 
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
@@ -67,8 +66,6 @@ export default function CommunityDetailPage(props: any) {
     IQueryFetchMyPickBoardsArgs
   >(FETCH_MY_PICK_BOARDS);
 
-  console.log(AttendList);
-
   const [attendBoard] = useMutation(ATTEND_LIST);
 
   const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
@@ -82,7 +79,7 @@ export default function CommunityDetailPage(props: any) {
         setPick(false);
       }
     }
-  }, [data]);
+  }, [PickList?.fetchMyPickBoards, data, props.boardId, setPick]);
   useEffect(() => {
     for (let i = 0; i < AttendList?.fetchAttendList.length; i++) {
       if (AttendList.fetchAttendList[i].board.id === props.boardId) {
@@ -92,10 +89,15 @@ export default function CommunityDetailPage(props: any) {
         setAttend(false);
       }
     }
-  }, [data]);
-
+  }, [AttendList?.fetchAttendList, data, props.boardId, setAttend]);
 
   const onClickAttend = (boardId) => async () => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setModalOpen(false);
+      return
+    } 
     try {
       const result = await attendBoard({
         variables: {
@@ -135,6 +137,12 @@ export default function CommunityDetailPage(props: any) {
     setConfirmModal(true);
   };
   const onClickPick = (boardId) => async () => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setModalOpen(false);
+      return
+    } 
     try {
       const result = await pickBoard({
         variables: {
@@ -162,9 +170,10 @@ export default function CommunityDetailPage(props: any) {
   const onClickAttendList = () => {
     setAttendList(true);
   };
+
   return (
     <CommunityDetailUIPage
-    loading={loading}
+      loading={loading}
       attendList={attendList}
       userData={userData}
       data={data}
